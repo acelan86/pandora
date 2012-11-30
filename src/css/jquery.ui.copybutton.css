@@ -1,0 +1,11 @@
+.ui-copybutton{
+	display:inline-block;
+	*display:inline;
+	*zoom:1;
+	position:relative;
+}
+.ui-copybutton-flash{
+	position:absolute;
+	left:0px;
+	top:0px;
+}

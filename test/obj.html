@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title> 新浪功能广告平台</title>
+        <link href="../assets/pandora.css" rel="stylesheet" />
+        <style>
+            .showblock{
+                width : 45%;
+                float:left;
+            }
+            .showblock dt{
+                font-size:18px;
+                font-weight:bolder;
+                line-height: 20px;
+                margin:6px;
+                color:#fff;
+            }
+            .showblock dd{
+                margin:6px;
+                padding:0;
+                background: lightyellow;
+                position:relative;
+                height:300px;
+                border:3px dotted #fc0;
+            }
+            body{
+                overflow:scroll;
+            }
+            h2{
+                color:#fff;
+                font-size:20px;
+                line-height: 20px;
+                margin:6px;
+                clear:both
+            }
+        </style>
+    </head>
+    <body>
+        <h2>普通元件</h2>
+        <dl class="showblock">
+            <dt>Retangle</dt>
+            <dd>
+                <div class="obj" data-type="Retangle"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Text</dt>
+            <dd>
+                <div class="obj" data-type="Txt"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Button</dt>
+            <dd>
+                <div class="obj" data-type="Btn"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Image</dt>
+            <dd>
+                <div class="obj" data-type="Img"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Qrcode</dt>
+            <dd>
+                <div class="obj" data-type="Qrcode"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Flash</dt>
+            <dd>
+                <div class="obj" data-type="Fla"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Video</dt>
+            <dd>
+                <div class="obj" data-type="Video"></div>
+            </dd>
+        </dl>
+
+        <h2>微博元件</h2>
+        <dl class="showblock">
+            <dt>Wbfocus</dt>
+            <dd>
+                <div class="obj" data-type="Wbfocus"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Wbnick</dt>
+            <dd>
+                <div class="obj" data-type="Wbnick"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Wbavatar</dt>
+            <dd>
+                <div class="obj" data-type="Wbavatar"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Wbrelation</dt>
+            <dd>
+                <div class="obj" data-type="Wbrelation"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Usernick</dt>
+            <dd>
+                <div class="obj" data-type="Usernick"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Useravatar</dt>
+            <dd>
+                <div class="obj" data-type="Useravatar"></div>
+            </dd>
+        </dl>
+
+
+        <h2>轮播元件</h2>
+        <dl class="showblock">
+            <dt>Imgslider</dt>
+            <dd>
+                <div class="obj" data-type="Imgslider"></div>
+            </dd>
+        </dl>
+        <dl class="showblock">
+            <dt>Tabslider</dt>
+            <dd>
+                <div class="obj" data-type="Tabslider"></div>
+            </dd>
+        </dl>
+
+        <h2>表单元件</h2>
+        <dl class="showblock">
+            <dt>Video</dt>
+            <dd>
+                <div class="obj" data-type="Video"></div>
+            </dd>
+        </dl>
+        
+        <script src="./jq.js"></script>
+        <script src="./obj.js"></script>
+
+        <script>
+            $('.obj').each(function (i, item) {
+                var $item = $(item),
+                    type = $item.attr('data-type');
+                $item[type]();
+            });
+        </script>
+    </body>
+</html>

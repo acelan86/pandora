@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title> 新浪功能广告平台</title>
+        <link href="assets/pandora.pack.css" rel="stylesheet" />
+    </head>
+    <body class="stage-hide-tag left-open page-busy">
+        <div id="XNav" class="x-nav">
+            <div id="XNavInner" class="x-nav-inner">
+                <span id="XLogo" class="x-logo">
+                    <a href="http://adbox.sina.com.cn/#">
+                        <img src="assets/img/logo.gif" alt="新浪功能广告平台"/>
+                        <div class="x-home"><img src="assets/img/home.png" /></div>
+                    </a>
+                </span>
+                <span id="XLoginInfo" class="x-login-info"></span> 
+                <div class="x-toolbar">
+                    <button id="PreviewBtn" class="preview-btn ui-state-em" data-tip="预览"><i class="icon icon-preview">&nbsp;</i> 预览</button><button id="EditBtn" class="edit-btn" data-tip="返回修改"> <i class="icon icon-edit"></i> 返回修改 </button><button id="SaveBtn" class="save-btn ui-state-em" data-tip="保存"><i class="icon icon-save"></i> 保存</button>
+                </div>
+                <div id="XToolbar" class="x-toolbar">
+                    <span id="XRecorder" class="x-recorder-toolbar x-toolbar-group">
+                        <button data-tip="撤销(ctrl+z)"> <i class="icon icon-arrow-left"></i></button><button data-tip="重做"> <i class="icon icon-arrow-right"></i></button>
+                    </span>
+                    <span class="x-common-toolbar x-toolbar-group">
+                        <button id="FullscreenBtn" data-tip="全屏"> <i class="icon icon-fullscreen"></i> <span class="des-text">全屏</span> </button><button id="GroupBtn" data-tip="组合(ctrl+g)"> <i class="icon icon-group"></i> <span class="des-text">组合</span> </button><button id="UngroupBtn" data-tip="取消组合(ctrl+shift+g)"> <i class="icon icon-ungroup"></i> <span class="des-text">取消组合</span> </button><button id="ConfigBtn" data-tip="设置"> <i class="icon icon-cog"></i> <span class="des-text">设置</span> </button><button id="DelBtn" data-tip="删除(backspace)"> <i class="icon icon-trash"></i> <span class="des-text">移除</span> </button><button id="TagBtn" data-tip="显示/隐藏标签(ctrl+i)"> <i class="icon icon-tag"></i> <span class="des-text">显示/隐藏标签</span> </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div id="XMain" class="x-main">
+            <div id="XStage" class="x-stage"></div>
+            <div id="XSidebar">
+                <div id="XToolPanel" class="x-tool-panel"></div>
+                <hr/>
+                <div id="XObjPanel" class="x-obj-panel"></div>
+            </div>
+            <div id="XProp" class="x-prop"></div>
+        </div>
+        <div id="XPreviewForm" class="x-preview-form">
+                <form target="XPreviewIframe" method="post" action="http://adbox.sina.com.cn/ma/preview">
+                <textarea id="XPreviewFormInput" name="content"></textarea>
+            </form>
+        </div>
+
+        <div id="XConfigDialog" class="x-config-dialog">
+            <form>
+                <table>
+                    <tr>
+                        <th valign="top">画布宽</th>
+                        <td><input class="ui-input canvas-w" name="canvasWidth" style="width:94px" type="text" /></td>
+                        <th valign="top">画布高</th>
+                        <td><input class="ui-input canvas-h" name="canvasHeight" style="width:94px" type="text" /></td>
+                    </tr>
+                    <tr>
+                        <th valign="top">背景色</th>
+                        <td><div class="canvas-bgcolor"></div><input name="canvasBgcolor" class="canvas-bgcolor-h" type="hidden" /></td>
+                        <th>边框</th>
+                        <td>
+                            <div style="float:left;" class="canvas-border"></div>
+                            <input class="canvas-border-h" name="canvasBorder" type="hidden" />
+                            <div style="float:left" class="canvas-bordercolor"></div>
+                            <input class="canvas-bordercolor-h" name="canvasBordercolor" type="hidden" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <th valign="top">推荐尺寸</th>
+                        <td colspan="3">
+                            <div class="canvas-size"></div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <div id="XCodeDialog" class="x-code-dialog" title="查看代码">
+            <textarea class="x-code-dialog-code"></textarea>
+            <input type="text" id="XCodeDialogUrl" class="ui-input x-code-dialog-url"/>
+            <input type="hidden" id="XCodeDialogTid"/>
+        </div>
+        <div id="XLoadingMask" class="loading-mask"></div>
+        <div id="XLoading" class="loading-outer" id="Loading">
+            <div class="loading">
+                <div class="loading-inner">
+                    <img style="height:35px;" src="assets/img/logo.gif" alt="新浪功能广告平台"/>
+                    <div class="loading-text" id="XProgress"></div>
+                </div>
+            </div>
+        </div>
+        <div class="x-tip" id="XTip"></div>
+        <script>
+            var pandora = {
+                loading : (function () {
+                    var mask = document.getElementById('XLoadingMask'),
+                        progress = document.getElementById('XProgress'),
+                        i = 0,
+                        len = 200,
+                        timer = null;
+
+                    function run() {
+                        //console.debug(i);
+                        progress.style.width = (i += (i > (len / 2) ? ((len - i) / 3) : 5)) + 'px';
+                        if (i < len) {
+                            timer = setTimeout(run, 400);
+                        }
+                    }
+                    run();
+
+                    return {
+                        hide : function () {
+                            timer && clearTimeout(timer);
+                            $(progress).width(i = len);
+                            setTimeout(function () {
+                                $(mask).fadeOut();
+                                $('body').removeClass('page-busy');
+                            }, 100);
+                        },
+                        show : function () {
+                            $('body').addClass('page-busy');
+                        }
+                    };
+                })()
+            };
+        </script>
+        <script src="assets/pandora.pack.js"></script>
+        <script>
+            /* 浏览器判断 */
+            if ($.browser.msie && parseInt($.browser.version.split('.')[0], 10) < 9) {
+                pandora.tipBox.show('为了提供更好的使用体验，建议您使用高级浏览器进行访问，如谷歌浏览器。', 1, 4000);
+            }
+            $.pandora.InteractiveEditor.getObjectList = function () {
+                var objs = [];
+                $('#XStage').getInstance()._getObjs().each(function (i, item) {
+                    //if (!$(item).hasClass('stage-obj-selected')) {
+                        objs.push(item.id + ' ' + item.getAttribute('data-tag'));
+                    //}
+                });
+                return objs;
+            };
+
+            /* 是否带模版进入 */
+            (function (tid) {
+                /* 兼容旧版本数据 */
+                function adapterObj(obj) {
+                    
+                    var o = {
+                        options : {
+                            x : obj.x,
+                            y : obj.y,
+                            w : obj.w,
+                            h : obj.h,
+                            z : obj.z || 0
+                        }
+                    };
+
+                    o.type = (function (type) {
+                        return {
+                            'image' : ['', 'Img', 'Fla', 'Video'],
+                            'button' : 'Btn',
+                            'text' : 'Txt',
+                            'input' : 'Input',
+                            'radio' : 'Radio',
+                            'checkbox' : 'Checkbox',
+                            'region' : 'Region',
+                            'wb-nick' : 'Wbnick',
+                            'wb-focus' : 'Wbfocus',
+                            'wb-avatar' : 'Wbavatar',
+                            'wb-pic' : 'Wbavatar',
+                            'wb-repos' : 'Wbrepos',
+                            'wb-share' : 'Wbshare',
+                            'imagecarousel' : 'Imgslider',
+                            'wb-relation' : 'Wbrelation',
+                            'select' : 'Select'
+                        }[type];
+                    })(obj.type);
+
+                    o.options.font = (function (obj) {
+                        var font = {};
+                        obj.b && (font['font-weight'] = 'bold');
+                        obj.i && (font['font-style'] = 'italic');
+                        obj.u && (font['text-decoration'] = 'underline');
+                        obj.size && (font['font-size'] = obj.size);
+                        return font;
+                    })(obj);
+
+                    obj.color && (o.options.color = obj.color);
+                    
+                    switch (obj.type) {
+                        case 'image' :
+                            o.type = o.type[obj.materiel.type];
+                            o.options.src = {
+                                url : obj.materiel.src
+                            };
+                            break;
+                        case 'text' :
+                            o.options.text = obj.text;
+                            o.options.url = obj.url;
+                            break;
+                        case 'button' : 
+                            o.options.text = obj.text;
+                            break;
+                        case 'select' : 
+                            if (obj.selecttype === 2) {
+                                obj.type = 'region';
+                                return adapterObj(obj);
+                            }
+                            break;
+                        case 'slider' : 
+                        case 'imagecarousel' : 
+                            var items = [],
+                                materiels = obj.materiel,
+                                materiel,
+                                i = 0;
+                            while (materiel = materiels[i++]) {
+                                items.push({
+                                    main : {
+                                        url : materiel.imgb
+                                    },
+                                    thumb : {
+                                        url : materiel.imgs
+                                    },
+                                    url : materiel.url
+                                });
+                            }
+                            o.options.items = items;
+                            o.options.thumbX = obj.tx;
+                            o.options.thumbY = obj.ty;
+                            o.options.mainWidth = obj.bw;
+                            o.options.mainHeight = obj.bh;
+                            o.options.delay = obj.interval;
+                            break;
+                        default : 
+                            break;
+                    }
+                    return o;
+                }
+                function adapter(data) {
+                    var ad = data,
+                        layout = ad.layout,
+                        layers = ad.layers,
+                        layer,
+                        i = 0,
+                        result = {
+                            ttid : data.ttid,
+                            tcid : data.tcid,
+                            tsid : data.tsid,
+                            width : layout.w,
+                            height : layout.h,
+                            objs : []
+                        };
+                    while (layer = layers[i++]) {
+                        var j = 0,
+                            elements = layer.elements,
+                            element;
+                        while (element = elements[j++]) {
+                            if (element.type === 'widget-wb') {
+                                result.wb = element.common.nick; //是微博组件
+                            }
+                            if (element.type.indexOf('widget-') === 0) {
+                                var coms = [],
+                                    k = 0,
+                                    els = element.elements,
+                                    el;
+                                while (el = els[k++]) {
+                                    coms.push(adapterObj(el));
+                                }
+                                result.objs.push({
+                                    type : 'Group',
+                                    options : {
+                                        x : element.x,
+                                        y : element.y,
+                                        z : element.z || 0,
+                                        coms : coms
+                                    }
+                                });
+                            } else {
+                                result.objs.push(adapterObj(element));
+                            }
+                        }
+                    }
+                    return result;
+                }
+                if (tid) {
+                    tid = parseInt(tid, 10);
+                    $.ajax('/ma/edit', {
+                        type : 'GET',
+                        dataType : 'json',
+                        data : {id : tid},
+                        success : function (data) {
+                            $.responseParser(data, function (data) {
+                                $.extend(data.content, {
+                                    tcid : data.templete_category_id || 8,
+                                    tsid : data.templete_standard_id || 8,
+                                    ttid : data.templete_type_id || 8
+                                });
+                                var data = data.content;
+                                if (!data.objs) {
+                                    data = adapter(data);
+                                }
+                                pandora.open(data);
+                            }, function () {
+                                pandora.open();
+                            });
+                        }
+                    });
+                } else {
+                    pandora.open();
+                }
+            })($.getPar('tid'));
+
+            //判断从哪里过来
+            (function (isfrom) {
+                var CREATIVE = 1,
+                    TEMPLATE = 0;
+                switch (parseInt(isfrom, 10)) {
+                    case CREATIVE : 
+                        pandora.configDialog.open();
+                        break;
+                    default : 
+                        break;
+                }
+            })($.getPar('isfrom'));
+        </script>
+    </body>
+</html>

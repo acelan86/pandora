@@ -1,0 +1,31 @@
+.ui-panel{
+    margin:5px;
+    position:absolute;
+    -webkit-user-select:none;
+    overflow:hidden;
+}
+.ui-panel-header{
+    cursor:move;
+}
+.ui-panel-body{
+    position:relative;
+    overflow-x: hidden;
+    overflow-y:auto;
+}
+.ui-panel-min,
+.ui-panel-close{
+    position:absolute;
+    right:2px;
+    top:2px;
+    width:18px;
+    height:18px;
+    margin:4px;
+    padding:0px;
+}
+.ui-panel-minisize .ui-panel-body{
+    display:none;
+}
+.ui-panel th{
+    font-weight:normal;
+    text-align:right;
+}

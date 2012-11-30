@@ -1,0 +1,79 @@
+.stage{
+    /*background:#bbb;*/
+    overflow:hidden;
+    position:relative;
+}
+.stage-canvas-preview{
+    display:none;
+}
+.stage-preview .stage-canvas-preview{
+    display:block;
+}
+.stage-preview .stage-canvas-editor{
+    display:none;
+}
+.stage-helper{
+    position:absolute;
+    background-color:#fff;
+    opacity:.1;
+    filter:alpha(opacity=10);
+    outline:1px dotted #000;
+}
+
+.stage-hide-tag .obj-tag{
+    display:none;
+}
+
+.ui-resizable-helper{
+    border: 1px dotted #f00;
+}
+
+.stage-canvas{
+    background:#fff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.7);
+}
+
+
+.stage-obj{
+    /* for border */
+    /*border:1px solid transparent;*/
+}
+
+.stage-obj-hover .obj-view{
+    /* for border */
+    /*border: 1px solid #f00;*/
+    outline: 1px solid #f00;
+    *border:1px solid #F00;
+}
+.stage-obj-selected .obj-view{
+    /* for border */
+    /*border: 1px solid #4D90FE;*/
+    outline: 1px solid #4D90FE;
+    *border:1px solid #4D90FE;
+    opacity: .8;
+    filter:alpha(opacity=80);
+}
+.obj-disabled .obj-view,
+.obj-disabled .obj-view{
+    outline:none;
+    *border:none;
+}
+.stage-obj-hover .ui-resizable-se,
+.stage-obj-hover .ui-resizable-sw,
+.stage-obj-hover .ui-resizable-ne,
+.stage-obj-hover .ui-resizable-nw{
+    border:1px solid #f00;
+    background:#fff;
+}
+.stage-obj-selected .ui-resizable-se,
+.stage-obj-selected .ui-resizable-sw,
+.stage-obj-selected .ui-resizable-ne,
+.stage-obj-selected .ui-resizable-nw{
+    border:1px solid #4d90fe;
+    background:#fff;
+}
+
+.stage-obj-selected .com-imgslider-thumb,
+.stage-obj-selected .com-imgslider-main{
+    border:1px solid #0f0;
+}

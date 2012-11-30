@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title> 新浪功能广告平台</title>
+        <link href="src/css/base.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.core.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.resizable.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.slider.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.button.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.dialog.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.tabs.css" rel="stylesheet" />
+        <link href="src/css/icon.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.theme.css" rel="stylesheet" />
+        <link href="src/css/jquery.ui.selectmenu.css" rel="stylesheet" />
+        <link href="src/css/editor.css" rel="stylesheet" />
+        <link href="src/css/com.css" rel="stylesheet"/>
+        <link href="src/css/stage.css" rel="stylesheet"/>
+    </head>
+    <body>
+        <div id="XNav" style="height:40px;"></div>
+        <div id="XMain" class="x-main">
+            <div id="XStage" class="x-stage">
+            </div>
+        </div>
+        <script src="src/core/jquery/jquery.js"></script>
+        <script src="src/core/jquery/extend/fullscreen.js"></script>
+        <script src="src/core/jquery/jquery.ui.core.js"></script>
+        <script src="src/core/jquery/jquery.ui.widget.js"></script>
+        <script src="src/core/jquery/jquery.ui.mouse.js"></script>
+        <script src="src/core/jquery/jquery.ui.position.js"></script>
+        <script src="src/core/jquery/jquery.ui.draggable.js"></script>
+        <script src="src/core/jquery/jquery.ui.resizable.js"></script>
+        <script src="src/core/jquery/jquery.ui.sortable.js"></script>
+        <script src="src/core/jquery/jquery.ui.editable.js"></script>
+
+
+        <script src="src/core/jquery/extend/getInstance.js"></script>
+        <script src="src/maker/component/ObjBase.js"></script>
+        <script src="src/maker/component/Com.js"></script>
+        <script src="src/maker/component/Group.js"></script>
+        <script src="src/maker/Stage.js"></script>
+        <script>
+        function resize() {
+                var contentHeight = $('body').height() - $('#XNav').height();
+                $('#XMain').height(contentHeight);
+            }
+            $(window).resize(resize);
+
+            resize();
+
+
+            $('<button>').html('COM').appendTo($('#XNav')).click(function(){
+                $('#XStage').getInstance().add('Com');
+            });
+
+            $('<button>').html('组合').appendTo($('#XNav')).click(function(){
+                $('#XStage').getInstance().group();
+            });
+
+            $('<button>').html('取消组合').appendTo($('#XNav')).click(function(){
+                $('#XStage').getInstance().ungroup();
+            });
+
+            $('#XStage').Stage({
+                add : function (e, data) {
+                    console.debug('add', JSON.stringify(data));
+                },
+                remove : function (e, data) {
+                    console.debug('remove', JSON.stringify(data));
+                },
+                group : function (e, data) {
+                    console.debug('group', data);
+                },
+                ungroup : function (e, data) {
+                    console.debug('ungroup', data);
+                },
+                select : function (e, data) {
+                    console.debug('select', JSON.stringify(data));
+                },
+                unselect : function (e, data) {
+                    console.debug('unselect', JSON.stringify(data));
+                },
+                change : function (e, data) {
+                    console.debug('change', JSON.stringify(data));
+                }
+            });
+
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,24 @@
+.ui-accordion .ui-accordion-header { 
+	display: block;
+	cursor: pointer; 
+	position: relative; 
+	padding: .4em .6em; 
+	zoom: 1; 
+}
+.ui-accordion-header i{
+	position: absolute;
+	right: 8px;
+	top:8px;
+}
+.ui-accordion .ui-accordion-content {
+	border-top: 0; 
+	overflow-x: hidden;
+	zoom: 1;
+	*margin-right:-10px;
+}
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon { 
+	position: absolute; 
+	left: .5em; 
+	top: 50%; 
+	margin-top: -8px; 
+}
