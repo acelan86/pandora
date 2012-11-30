@@ -107,4 +107,4 @@ document.write('<script src="src/maker/PropPanel.js"></script>');
 document.write('<script src="src/maker/ToolPanel.js"></script>');
 document.write('<script src="src/maker/ObjPanel.js"></script>');
 document.write('<script src="src/maker/Recorder.js"></script>');
-document.write('<script src="src/maker/EventCPU.js"></script>');
+document.write('<script src="src/maker/EventProcessUnit.js"></script>');
