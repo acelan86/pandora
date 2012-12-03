@@ -58,6 +58,7 @@
                 .SelectEditor({
                     datasource : options.datasource,
                     width : options.width,
+                    value : me.options.value.select,
                     change : function (e, data) {
                         var value = {};
 

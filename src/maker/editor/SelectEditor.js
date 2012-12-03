@@ -35,7 +35,7 @@
                 html.push('<option ' + selected + 'value="' + item.value + '">' + item.name + '</option>');
             });
 
-            return '<select name="' + (this.options.name || this._getName()) + '">' + html.join('') + '</select>';
+            return '<select name="' + (this.options.name || this._getName()) + '" value="' + this.options.value + '">' + html.join('') + '</select>';
         },
 
         _setOption : function (k, v) {
